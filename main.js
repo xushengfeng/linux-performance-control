@@ -1,87 +1,90 @@
-const {
-    app,
-    Menu,
-    Tray
-} = require('electron')
+const { app, Menu, Tray } = require("electron");
 
-let tray = null
+let tray = null;
 app.whenReady().then(() => {
-    tray = new Tray('icon.png')
-    const contextMenu = Menu.buildFromTemplate([{
+    tray = new Tray("icon.png");
+    const contextMenu = Menu.buildFromTemplate([
+        {
             label: "均衡",
             type: "radio",
             click: () => {
-                b = run("ls")
-                console.log(b)
-            }
+                b = run("sudo ./run.sh 01");
+                console.log(b);
+            },
         },
         {
             label: "性能",
             type: "radio",
-            click: function () {}
+            click: function () {
+                b = run("sudo ./run.sh 02");
+                console.log(b);
+            },
         },
         {
             label: "省电",
             type: "radio",
-            click: function () {}
+            click: function () {
+                b = run("sudo ./run.sh 03");
+                console.log(b);
+            },
         },
         {
-            type: "separator"
+            type: "separator",
         },
         {
             label: "快速充电",
-            type: 'checkbox',
+            type: "checkbox",
             click: () => {
-                if (contextMenu.items[4].checked) contextMenu.items[5].checked = false
-                tray.setContextMenu(contextMenu)
-            }
+                if (contextMenu.items[4].checked)
+                    contextMenu.items[5].checked = false;
+                tray.setContextMenu(contextMenu);
+            },
         },
         {
             label: "电池保护",
-            type: 'checkbox',
+            type: "checkbox",
             click: function () {
-                if (contextMenu.items[5].checked) contextMenu.items[4].checked = false
-                tray.setContextMenu(contextMenu)
-            }
+                if (contextMenu.items[5].checked)
+                    contextMenu.items[4].checked = false;
+                tray.setContextMenu(contextMenu);
+            },
         },
         {
-            type: "separator"
+            type: "separator",
         },
         {
             label: "退出",
             click: () => {
-                app.quit()
-            }
-        }
-    ])
-    tray.setToolTip('This is my application.')
-    tray.setTitle('hi')
-    tray.setContextMenu(contextMenu)
-})
+                app.quit();
+            },
+        },
+    ]);
+    tray.setToolTip("This is my application.");
+    tray.setTitle("hi");
+    tray.setContextMenu(contextMenu);
+});
 
-const {
-    spawn
-} = require('child_process');
+const { spawn } = require("child_process");
 
 function run(c) {
     const ls = spawn(c, {
-        encoding: 'utf8',
+        encoding: "utf8",
         cwd: process.cwd(), // 执行命令路径
         shell: true, // 使用shell命令
-    })
+    });
 
     // 监听标准输出
-    ls.stdout.on('data', (data) => {
+    ls.stdout.on("data", (data) => {
         return data;
     });
 
     // 监听标准错误
-    ls.stderr.on('data', (data) => {
-        show('失败')
+    ls.stderr.on("data", (data) => {
+        show("失败");
     });
 
     // 子进程关闭事件
-    ls.on('close', (code) => {
+    ls.on("close", (code) => {
         console.log(`子进程退出，退出码 ${code}`);
     });
 }
@@ -98,5 +101,5 @@ function run(c) {
 // );
 
 function show(t) {
-    console.log(t)
+    console.log(t);
 }

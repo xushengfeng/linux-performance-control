@@ -8,24 +8,24 @@ app.whenReady().then(() => {
             label: "均衡",
             type: "radio",
             click: () => {
-                b = run("sudo ./run.sh 01");
-                console.log(b);
+                b = run("sudo ./run.sh 00");
+                check(0,b);
             },
         },
         {
             label: "性能",
             type: "radio",
             click: function () {
-                b = run("sudo ./run.sh 02");
-                console.log(b);
+                b = run("sudo ./run.sh 01");
+                check(0,b);
             },
         },
         {
             label: "省电",
             type: "radio",
             click: function () {
-                b = run("sudo ./run.sh 03");
-                console.log(b);
+                b = run("sudo ./run.sh 02");
+                check(0,b);
             },
         },
         {
@@ -35,18 +35,26 @@ app.whenReady().then(() => {
             label: "快速充电",
             type: "checkbox",
             click: () => {
-                if (contextMenu.items[4].checked)
-                    contextMenu.items[5].checked = false;
-                tray.setContextMenu(contextMenu);
+                if (contextMenu.items[4].checked) {
+                    b = run("sudo ./run.sh 10");
+                    check(1,b);
+                } else {
+                    b = run("sudo ./run.sh 11");
+                    check(1,b);
+                }
             },
         },
         {
             label: "电池保护",
             type: "checkbox",
             click: function () {
-                if (contextMenu.items[5].checked)
-                    contextMenu.items[4].checked = false;
-                tray.setContextMenu(contextMenu);
+                if (contextMenu.items[5].checked) {
+                    b = run("sudo ./run.sh 20");
+                    check(2,b);
+                } else {
+                    b = run("sudo ./run.sh 21");
+                    check(2,b);
+                }
             },
         },
         {
@@ -62,6 +70,45 @@ app.whenReady().then(() => {
     tray.setToolTip("This is my application.");
     tray.setTitle("hi");
     tray.setContextMenu(contextMenu);
+
+    function check(n,x){
+        switch(n){
+            case 0:
+                switch(x){
+                    case '0x0':
+                        contextMenu.items[0].checked = true
+                        show('均衡模式开启')
+                        break
+                    case '0x1':
+                        contextMenu.items[1].checked = true
+                        show('性能模式开启')
+                        break
+                    case '0x2':
+                        contextMenu.items[2].checked = true
+                        show('省电模式开启')
+                        break
+                }
+                break
+            case 1:
+                if(x=='0x0'){
+                    contextMenu.items[4].checked = false
+                }else{
+                    contextMenu.items[4].checked =true
+                    contextMenu.items[5].checked = false
+                }
+                break
+            case 2:
+                if(x=='0x0'){
+                    contextMenu.items[5].checked = false
+                }else{
+                    contextMenu.items[5].checked =true
+                    contextMenu.items[4].checked = false
+                }
+                break
+        }
+        tray.setContextMenu(contextMenu);
+    }
+    
 });
 
 const { spawn } = require("child_process");
@@ -88,17 +135,6 @@ function run(c) {
         console.log(`子进程退出，退出码 ${code}`);
     });
 }
-
-// const sudo = require('sudo-prompt');
-// const options = {
-//   name: 'Electron'
-// };
-// sudo.exec("echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x000FB001' > /proc/acpi/call", options,
-//   function(error, stdout, stderr) {
-//     if (error) throw error;
-//     console.log('stdout: ' + stdout);
-//   }
-// );
 
 function show(t) {
     console.log(t);

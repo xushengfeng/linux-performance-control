@@ -1,0 +1,2 @@
+node_modules/_electron@15.0.0@electron/dist/electron[[:space:]] filter=lfs diff=lfs merge=lfs -text
+node_modules/_electron@15.0.0@electron/dist/chrome_crashpad_handler[[:space:]] filter=lfs diff=lfs merge=lfs -text

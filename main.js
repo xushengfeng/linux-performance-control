@@ -34,9 +34,9 @@ app.whenReady().then(() => {
             type: "checkbox",
             click: () => {
                 if (contextMenu.items[4].checked) {
-                    run(1,"sudo ./run.sh 10");
-                } else {
                     run(1,"sudo ./run.sh 11");
+                } else {
+                    run(1,"sudo ./run.sh 10");
                 }
             },
         },
@@ -45,9 +45,9 @@ app.whenReady().then(() => {
             type: "checkbox",
             click: function () {
                 if (contextMenu.items[5].checked) {
-                    run(2,"sudo ./run.sh 20");
-                } else {
                     run(2,"sudo ./run.sh 21");
+                } else {
+                    run(2,"sudo ./run.sh 20");
                 }
             },
         },
@@ -114,16 +114,22 @@ app.whenReady().then(() => {
             case 1:
                 if (x == "0x0") {
                     contextMenu.items[4].checked = false;
-                } else {
+                    show("快速充电关闭")
+                }
+                if (x == "0x1"){
                     contextMenu.items[4].checked = true;
+                    show("快速充电开启")
                     contextMenu.items[5].checked = false;
                 }
                 break;
             case 2:
                 if (x == "0x0") {
                     contextMenu.items[5].checked = false;
-                } else {
+                    show("电池保护关闭")
+                }
+                if (x == "0x1"){
                     contextMenu.items[5].checked = true;
+                    show("电池保护开启")
                     contextMenu.items[4].checked = false;
                 }
                 break;

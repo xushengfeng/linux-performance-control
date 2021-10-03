@@ -1,29 +1,35 @@
 const { app, Menu, Tray, BrowserWindow, Notification } = require("electron");
 const path = require("path");
 
+if (app.getAppPath().slice(-8) == 'app.asar') {
+    run_path = path.resolve(__dirname, "..");
+} else {
+    run_path = path.resolve(__dirname, "");
+}
+
 let tray = null;
 app.whenReady().then(() => {
-    tray = new Tray("assets/icon.png");
+    tray = new Tray(`${run_path}/assets/icon.png`);
     const contextMenu = Menu.buildFromTemplate([
         {
             label: "均衡",
             type: "radio",
             click: () => {
-                run(0, "sudo ./run.sh 00");
+                run(0, `sudo ./run.sh 00`);
             },
         },
         {
             label: "性能",
             type: "radio",
             click: function () {
-                run(0, "sudo ./run.sh 01");
+                run(0, `sudo ./run.sh 01`);
             },
         },
         {
             label: "省电",
             type: "radio",
             click: function () {
-                run(0, "sudo ./run.sh 02");
+                run(0, `sudo ./run.sh 02`);
             },
         },
         {
@@ -34,9 +40,9 @@ app.whenReady().then(() => {
             type: "checkbox",
             click: () => {
                 if (contextMenu.items[4].checked) {
-                    run(1, "sudo ./run.sh 11");
+                    run(1, `sudo ./run.sh 11`);
                 } else {
-                    run(1, "sudo ./run.sh 10");
+                    run(1, `sudo ./run.sh 10`);
                 }
             },
         },
@@ -45,9 +51,9 @@ app.whenReady().then(() => {
             type: "checkbox",
             click: function () {
                 if (contextMenu.items[5].checked) {
-                    run(2, "sudo ./run.sh 21");
+                    run(2, `sudo ./run.sh 21`);
                 } else {
-                    run(2, "sudo ./run.sh 20");
+                    run(2, `sudo ./run.sh 20`);
                 }
             },
         },
@@ -70,7 +76,7 @@ app.whenReady().then(() => {
     function run(n, c) {
         const ls = spawn(c, {
             encoding: "utf8",
-            cwd: process.cwd(), // 执行命令路径
+            cwd: run_path, // 执行命令路径
             shell: true, // 使用shell命令
         });
 
@@ -139,6 +145,9 @@ app.whenReady().then(() => {
 });
 
 function show(t, icon = null) {
-    new Notification({ title: t, icon: `assets/${icon}.png` }).show();
+    new Notification({
+        title: t,
+        icon: `${run_path}/assets/${icon}.png`,
+    }).show();
     console.log(t);
 }

@@ -8,8 +8,8 @@
    sodipodi:docname="20.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    inkscape:export-filename="/home/xsf/Project/性能管理-js/assets/20.png"
-   inkscape:export-xdpi="61.439999"
-   inkscape:export-ydpi="61.439999"
+   inkscape:export-xdpi="15.36"
+   inkscape:export-ydpi="15.36"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
      id="path967"
      sodipodi:nodetypes="ccccccc" />
   <circle
-     style="stroke-opacity:1;stroke-dasharray:none;stroke-width:10;stroke:#bfbfbf;fill:none"
+     style="stroke-opacity:1;stroke-dasharray:none;stroke-width:30;stroke:#bfbfbf;fill:none;stroke-miterlimit:4"
      id="path847"
      cx="200"
      cy="200"

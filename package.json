@@ -1,6 +1,6 @@
 {
     "name": "linux-performance-control",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Linux性能管理",
     "main": "main.js",
     "scripts": {
@@ -19,16 +19,17 @@
     },
     "build": {
         "linux": {
-            "icon": "./assets/icon.png",
+            "icon": "assets/icons",
             "category": "System",
             "target": [
-                "AppImage",
+                "tar.gz",
+                "deb",
                 "pacman"
             ]
         },
-        "extraFiles": [
-          "./assets/**",
-          "./run.sh"
+        "extraResources": [
+            "./assets/**",
+            "./run.sh"
         ]
     }
 }

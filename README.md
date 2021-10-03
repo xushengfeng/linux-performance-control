@@ -8,16 +8,16 @@ linux性能管理是为了在linux笔记本下进行控制性能和电源而写�
 ## 使用
 克隆本仓库并进入。在仓库目录下执行`npm install electron`以安装electron。然后执行`npm install`进行安装，最后执行`npm start`启动linux-performance-control。
 
-![](readme_assets/128.bmp)
+![](readme_assets/1.bmp)
 
 
 
-![](readme_assets/452.bmp)
+![](readme_assets/2.bmp)
 
-![](readme_assets/1633225809226.gif)
+![](readme_assets/1633255001108.gif)
 
 ## 下一步
-- [ ] 打包成应用
+- [x] 打包成应用
 - [x] 通知加入图标
 
 ## PS

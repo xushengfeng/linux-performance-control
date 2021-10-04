@@ -19,11 +19,15 @@ linux性能管理是为了在linux笔记本下进行控制性能和电源而写�
 
 直接在右边releases上下载最新的包
 
-```
+```shell
 # 如果你的系统是Ubuntu或Debian系
 sudo dpkg -i linux-performance-control_2.0.1_amd64.deb
 
 # 如果你的系统是Arch Linux或manjaro
+# 首先安装acpi_call（acpi_call用于官方内核acpi_call-lts用于 LTS 内核，acpi_call-dkms用于其他内核）
+sudo pacman -S acpi_call
+# 建议安装electron
+sudo pacman -S electron
 sudo pacman -U linux-performance-control-2.0.1.pacman
 ```
 

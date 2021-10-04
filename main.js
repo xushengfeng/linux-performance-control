@@ -1,7 +1,10 @@
 const { app, Menu, Tray, BrowserWindow, Notification } = require("electron");
 const path = require("path");
-
-if (app.getAppPath().slice(-8) == 'app.asar') {
+var sudo = require("sudo-prompt");
+var options = {
+    name: "Electron",
+};
+if (app.getAppPath().slice(-8) == "app.asar") {
     run_path = path.resolve(__dirname, "..");
 } else {
     run_path = path.resolve(__dirname, "");
@@ -71,31 +74,15 @@ app.whenReady().then(() => {
     tray.setTitle("hi");
     tray.setContextMenu(contextMenu);
 
-    const { spawn } = require("child_process");
-
     function run(n, c) {
-        const ls = spawn(c, {
-            encoding: "utf8",
-            cwd: run_path, // 执行命令路径
-            shell: true, // 使用shell命令
-        });
-
-        // 监听标准输出
-        ls.stdout.on("data", (data) => {
-            console.log(`${data}`);
-            check(n, `${data}`);
-            return `${data}`;
-        });
-
-        // 监听标准错误
-        ls.stderr.on("data", (data) => {
-            show("失败");
-        });
-
-        // 子进程关闭事件
-        ls.on("close", (code) => {
-            console.log(`子进程退出，退出码 ${code}`);
-        });
+        sudo.exec(
+            `cd ${run_path}&&${c}`,
+            options,
+            function (error, stdout, stderr) {
+                if (error) show("失败");
+                check(n, `${stdout}`);
+            }
+        );
     }
 
     function check(n, x) {

@@ -1,6 +1,6 @@
 {
     "name": "linux-performance-control",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Linux性能管理",
     "main": "main.js",
     "scripts": {
@@ -31,5 +31,8 @@
             "./assets/**",
             "./run.sh"
         ]
+    },
+    "dependencies": {
+        "sudo-prompt": "^9.2.1"
     }
 }
